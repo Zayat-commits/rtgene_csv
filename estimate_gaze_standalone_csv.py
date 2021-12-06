@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 
 # Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
@@ -18,10 +19,6 @@ from rt_gene.gaze_tools import get_phi_theta_from_euler, limit_yaw
 from rt_gene.gaze_tools_standalone import euler_from_matrix
 
 script_path = os.path.dirname(os.path.realpath(__file__))
-
-with open('results.csv', 'w') as file:
-	writer = csv.writer(file)
-	writer.writerow(["Frame_number", "Headpose_Horizontal_rad", "Headpose_Vertical_rad", "Gaze_Horizontal_rad", "Gaze_Vertical_rad"])
 
 def load_camera_calibration(calibration_file):
     import yaml
@@ -134,7 +131,7 @@ def estimate_gaze(base_name, color_img, dist_coefficients, camera_matrix):
                        # ', [' + str(gaze[1]) + ', ' + str(gaze[0]) + ']' + '\n')
 	    #csv method:
 	    csv_row = os.path.splitext(base_name)[0] + ', ' + str(headpose[1]) + ', ' + str(headpose[0]) + ', ' + str(gaze[1]) + ', ' + str(gaze[0]) + '\n' 
-	    with open('results.csv', 'a') as f:
+	    with open(os.path.basename(os.path.dirname(os.path.dirname(args.im_path))) + '.csv', 'a') as f:
 		f.write(csv_row)
 	
 
@@ -180,6 +177,9 @@ if __name__ == '__main__':
     else:
         tqdm.write('Provide either a path to an image or a path to a directory containing images')
         sys.exit(1)
+    with open(os.path.basename(os.path.dirname(os.path.dirname(args.im_path))) + '.csv', 'w') as csvfile: 
+        writer = csv.writer(csvfile)
+        writer.writerow(["Frame_number", "Headpose_Horizontal_rad", "Headpose_Vertical_rad", "Gaze_Horizontal_rad", "Gaze_Vertical_rad"])
 
     tqdm.write('Loading networks')
     landmark_estimator = LandmarkMethodBase(device_id_facedetection=args.device_id_facedetection,
