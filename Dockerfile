@@ -24,6 +24,7 @@ RUN pip install Pillow
 RUN pip install matplotlib
 RUN pip install tensorflow-gpu     
 RUN pip install torch torchvision 
+RUN pip install opencv-python==4.2.0.34
 
 RUN cd $HOME && git clone https://github.com/Tobias-Fischer/rt_gene.git
 RUN cd $HOME/rt_gene/rt_gene_standalone && wget https://raw.githubusercontent.com/Zayat-commits/rtgene_csv/main/estimate_gaze_standalone_csv.py
