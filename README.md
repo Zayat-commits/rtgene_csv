@@ -10,6 +10,9 @@ This repository contains only certain files from: [RT_GENE](https://github.com/T
 4. Navigate to proper directory using: `$ cd $HOME/rt_gene/rt_gene_standalone/` in the Docker container terminal.
 5. Run the following command to download and test required models: `$ python estimate_gaze_standalone.py --save-estimate --no-vis-gaze`.
 6. If step 5 was a success, run this command for a specific folder of images: `$ python estimate_gaze_standalone_csv.py /root/RTGENE/[.../images_folder] --save-estimate --no-vis-gaze`, fill the brackets with proper path and remove brackets.
+7. The resulting csv is then created in the same directory as in step 4.
+8. To move files between the docker and the host is done by using: `$ sudo docker cp [docker container id]:/[Path to file of source] [Host path to destination directory] `.
+	Example: `$ sudo docker cp 135950565ad8:/geeksforgeeks.txt ~/Desktop/`  -from container to host. `$ sudo docker cp  ~/Desktop/geeksforgeeks.txt 135950565ad8:/root/...` - from host to container.
 
 ## estimate_gaze_standalone_csv.py
 Here, the following will explain what edits were done in order to change the original source from writing output of each image into a separate text file into one csv file with all results altogether.
